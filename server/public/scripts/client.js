@@ -8,8 +8,26 @@ function addClickHandlers() {
   $('#submitBtn').on('click', handleSubmit);
 
   // TODO - Add code for edit & delete buttons
-  $( document ).on( 'click', '#deleteBtn', onDelete );
+  $( document ).on( 'click', '.deleteBtn', onDelete );
+  $( document ).on( 'click', '.readBtn', onMarkAsRead );
 }
+
+function onMarkAsRead(){
+  let bookId = $( this ).data( 'id' );
+  $.ajax( {
+    method: 'PUT',
+    url: `/books/${ bookId }`,
+    data: {
+      status: 'Read'
+    }
+  } ).then( function( response ) {
+    console.log( 'response in PUT:', response );
+    refreshBooks();
+  } ).catch( function( err ) {
+    console.log( 'error in PUT:', err );
+    alert( 'error!' );
+  } ); // end ajax PUT
+} // end onMarkAsRead
 
 function onDelete(){
   let bookId = $( this ).data( 'id' );
@@ -73,8 +91,8 @@ function renderBooks(books) {
     $tr.data('book', book);
     $tr.append(`<td>${book.title}</td>`);
     $tr.append(`<td>${book.author}</td>`);
-    $tr.append(`<button id="deleteBtn" data-id="${ book.id }">Delete</button>`);
-    $tr.append(`<button id="readBtn" data-id="${ book.id }">Mark As Read</button>`);
+    $tr.append(`<button class="deleteBtn" data-id="${ book.id }">Delete</button>`);
+    $tr.append(`<button class="readBtn" data-id="${ book.id }">Mark As Read</button>`);
     $('#bookShelf').append($tr);
   }
 }

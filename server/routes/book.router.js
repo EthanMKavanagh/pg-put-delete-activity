@@ -45,9 +45,21 @@ router.put('/:id',  (req, res) => {
   console.log(`Updating book ${id} with `, book);
 
   // TODO - REPLACE BELOW WITH YOUR CODE
-  res.sendStatus(500);
-
-});
+  let queryString = '';
+  if( book.status === 'read' ){
+    queryString = `UPDATE "books" SET "status" = 'Read' WHERE "id" = $1;`;
+  } // end if
+  else{
+    console.log( 'error in PUT!' );
+  } // end else
+  pool.query( queryString, [ id ] ).then( ( result ) => {
+    console.log( 'Updated status to read. Result:', result );
+    res.sendStatus( 200 );
+  } ).catch( ( err ) => {
+    console.log( 'error in server PUT:', err );
+    alert( 'error' );
+  } ); // end ajax PUT
+}); // end PUT
 
 // TODO - DELETE 
 // Removes a book to show that it has been read
