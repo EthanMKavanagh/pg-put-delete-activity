@@ -46,7 +46,7 @@ router.put('/:id',  (req, res) => {
 
   // TODO - REPLACE BELOW WITH YOUR CODE
   let queryString = '';
-  if( book.status === 'read' ){
+  if( book.status === 'Read' ){
     queryString = `UPDATE "books" SET "status" = 'Read' WHERE "id" = $1;`;
   } // end if
   else{

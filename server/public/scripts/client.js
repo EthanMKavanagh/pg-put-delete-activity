@@ -91,6 +91,7 @@ function renderBooks(books) {
     $tr.data('book', book);
     $tr.append(`<td>${book.title}</td>`);
     $tr.append(`<td>${book.author}</td>`);
+    $tr.append(`<td>${book.status}</td>`)
     $tr.append(`<button class="deleteBtn" data-id="${ book.id }">Delete</button>`);
     $tr.append(`<button class="readBtn" data-id="${ book.id }">Mark As Read</button>`);
     $('#bookShelf').append($tr);
